@@ -2,6 +2,7 @@
 
 ![](./img/finance.drawio.png)
 
+
 # TODO
  - Реализовать MVP Backend с FastAPI
  - Реализовать MVP TG Frontend с python-telegram-bot
@@ -23,3 +24,24 @@
  - Другие, более сложные источники для расходов (распознавание текста на чеке, пдф выписки)
 
 
+
+# Как начать разрабатывать
+
+Использовать pyenv:
+
+Установить Python 3.11.9
+```bash
+$ pyenv install 3.11.9
+```
+
+Создать и активировать виртуальное окружение
+```bash
+$ pyenv virtualenv 3.11.9 finance
+$ pyenv local finance
+$ pyenv activate finance
+```
+
+Установить зависимости
+```bash
+pip install -r requirements.txt
+```
