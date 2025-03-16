@@ -1,13 +1,15 @@
 # Система учета расходов
 
 ![](./img/finance.drawio.png)
+![](./img/db_schema.png)
 
 
-# TODO
- - Реализовать MVP Backend с FastAPI
+# ROADMAP
+ - Реализовать MVP Backend с FastAPI - ✅
  - Реализовать MVP TG Frontend с python-telegram-bot
- - Определить схему MVP БД
+ - Определить схему MVP БД - ✅
  - Запихнуть все в Docker (+ docker-compose)
+ - Подключить механизм миграций базы
 
 
  ## Список user stories по возрастанию сложности:
