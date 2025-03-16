@@ -5,6 +5,7 @@ from sqlmodel import SQLModel, create_engine, Session, select
 from typing import Annotated
 
 from models.expense import Expense, ExpenseCreate, ExpensePublic, ExpensePublicWithUser, ExpenseUpdate
+from models.expense_category import ExpenseCategory, ExpenseCategoryPublic
 from models.user import User, UserCreate, UserPublic, UserUpdate
 
 
@@ -134,3 +135,18 @@ def delete_expense(expense_id: int, session: SessionDep):
     session.delete(expense)
     session.commit()
     return {"ok": True}
+
+
+# Expense category paths
+@app.get("/expense_categories/", response_model=list[ExpenseCategoryPublic])
+def get_expense_categories(session: SessionDep):
+    categories = session.exec(select(ExpenseCategory)).all()
+    return categories
+
+@app.get("/expense_categories/{category_id}", response_model=ExpenseCategoryPublic)
+def get_expense_category(category_id: int, session: SessionDep):
+    category = session.get(ExpenseCategory, category_id)
+    if not category:
+        raise HTTPException(status_code=404, detail="Category not found")
+    return category
+

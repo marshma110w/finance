@@ -3,20 +3,22 @@ from decimal import Decimal
 from sqlalchemy import Column, DateTime, func
 from sqlmodel import SQLModel, Field, Relationship
 from models.user import User, UserPublic
+from models.expense_category import ExpenseCategory
 
 class ExpenseBase(SQLModel):
     title: str = Field(index=True)
-    text: str
-    amount: Decimal = Field(decimal_places=2)
+    text: str | None = Field(default=None)
+    amount: Decimal = Field(decimal_places=2, ge=0)
     
     user_id: int = Field(foreign_key="user.id")
+    category_id: int = Field(foreign_key="expense_category.id")
 
-
-class Expense(ExpenseBase, table=True):
+class Expense(ExpenseBase, table=True):    
     """ Модель расхода для БД """
     id: int | None = Field(default=None, primary_key=True)
     
     user: User = Relationship(back_populates="expenses")
+    category: ExpenseCategory = Relationship(back_populates="expenses")
     
     created_at: datetime | None = Field(
         default=None,
@@ -35,6 +37,7 @@ class Expense(ExpenseBase, table=True):
 class ExpensePublic(ExpenseBase):
     """ Модель для показа расхода """
     id: int
+    category: ExpenseCategory
 
 
 class ExpensePublicWithUser(ExpensePublic):
